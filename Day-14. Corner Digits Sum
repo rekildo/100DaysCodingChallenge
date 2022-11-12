@@ -1,0 +1,79 @@
+Corner Digits Sum
+BasicAccuracy: 52.51%Submissions: 2922Points: 1
+Given a number N, find the sum of first and last digit of N.
+ 
+
+Example 1:
+
+Input: N = 12345
+Output: 6
+Explanation: 1st and last digits are 1 and 5.
+Example 2:
+
+Input: 98562
+Output: 11
+Explanation: 1st and last digits are 9 and 2. 
+ 
+
+Your Task:
+You don't need to read or print anything. Your task is to complete the function corner_digitSum() which takes N as input parameter and returns the sum of first and last digit of N.
+ 
+
+Expect Time Compelxity: O(log10(N))
+Expected Space Complexity: O(1)
+
+Constraints:
+1 <= N <= 109
+
+
+//Source Code
+//{ Driver Code Starts
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+
+
+class Solution{
+	public:
+    	int firstDigit(int n){
+            while(n >= 10){
+                n /= 10;
+            }
+            return n;
+    	}
+	
+    	int lastDigit(int n){
+    	    return (n % 10);
+    	}
+	
+   	int corner_digitSum(int n){
+        
+        if(n < 10)
+            return n;
+        
+        int first = firstDigit(n);
+    	int last = lastDigit(n);
+        
+        int res = first + last;
+        
+        return res;
+   	}    
+};
+
+//{ Driver Code Starts.
+int main(){
+	int tc;
+	cin >> tc;
+	while(tc--){
+		int n;
+		cin >> n;
+		Solution ob;
+		int ans = ob.corner_digitSum(n);
+		cout << ans <<"\n";
+	}  
+	return 0;
+}
+// } Driver Code Ends
