@@ -76,3 +76,31 @@ int main()
 
 
 // } Driver Code Ends
+
+
+
+//APPROACH - 2
+//TIME : O(N2)
+
+//{ Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+class Solution
+{
+  public:
+    char firstRep (string s)
+    {
+        //code here.
+       for(int i = 0; i<s.size()-1; i++){
+           char t = s[i];
+           for(int j = i+1; j<s.size(); j++){
+               if(t == s[j])
+                    return t;
+           }
+       }
+    
+        return '#';
+    }
+};
