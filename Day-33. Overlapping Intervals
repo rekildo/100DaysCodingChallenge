@@ -1,0 +1,115 @@
+Overlapping Intervals
+MediumAccuracy: 57.41%Submissions: 30K+Points: 4
+Lamp
+This problem is part of GFG SDE Sheet. Click here to view more.  
+
+Given a collection of Intervals, the task is to merge all of the overlapping Intervals.
+
+Example 1:
+
+Input:
+Intervals = {{1,3},{2,4},{6,8},{9,10}}
+Output: {{1, 4}, {6, 8}, {9, 10}}
+Explanation: Given intervals: [1,3],[2,4]
+[6,8],[9,10], we have only two overlapping
+intervals here,[1,3] and [2,4]. Therefore
+we will merge these two and return [1,4],
+[6,8], [9,10].
+Example 2:
+
+Input:
+Intervals = {{6,8},{1,9},{2,4},{4,7}}
+Output: {{1, 9}}
+Your Task:
+Complete the function overlappedInterval() that takes the list N intervals as input parameters and returns sorted list of intervals after merging.
+
+Expected Time Complexity: O(N*Log(N)).
+Expected Auxiliary Space: O(Log(N)) or O(N).
+
+Constraints:
+1 ≤ N ≤ 100
+0 ≤ x ≤ y ≤ 1000
+
+
+//souce code
+
+
+//{ Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+class Solution {
+public:
+    vector<vector<int>> overlappedInterval(vector<vector<int>>& in) {
+     // Code here
+
+         
+
+         sort(in.begin(),in.end());
+
+         vector<vector<int>>ans;
+
+         
+
+         for(int i=0;i<in.size();i++)
+
+         {
+
+             int s=in[i][0];
+
+             int e=in[i][1];
+
+             // if already in ans wali ki range me
+
+             if(!ans.empty())
+
+                if(s<=ans.back()[1])
+
+                    continue;
+
+            for(int j=i+1;j<in.size();j++)
+
+            {
+
+                if(in[j][0]<=e)
+
+                    e=max(e,in[j][1]);
+
+            }
+
+            ans.push_back({s,e});
+
+         }
+
+         return ans;
+
+         }
+};
+
+//{ Driver Code Starts.
+int main(){
+	int tc;
+	cin >> tc;
+	while(tc--){
+		int n;
+		cin >> n;
+		vector<vector<int>>Intervals(n);
+		for(int i = 0; i < n; i++){
+			int x, y;
+			cin >> x >> y;
+			Intervals[i].push_back(x);
+			Intervals[i].push_back(y);
+		}
+		Solution obj;
+		vector<vector<int>> ans = obj.overlappedInterval(Intervals);
+		for(auto i: ans){
+			for(auto j: i){
+				cout << j << " ";
+			}
+		}
+		cout << "\n";
+	}
+	return 0;
+}
+// } Driver Code Ends
