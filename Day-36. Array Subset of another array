@@ -1,0 +1,129 @@
+Array Subset of another array
+EasyAccuracy: 44.05%Submissions: 156K+Points: 2
+Lamp
+This problem is part of GFG SDE Sheet. Click here to view more.  
+
+Given two arrays: a1[0..n-1] of size n and a2[0..m-1] of size m. Task is to check whether a2[] is a subset of a1[] or not. Both the arrays can be sorted or unsorted. 
+ 
+
+Example 1:
+
+Input:
+a1[] = {11, 1, 13, 21, 3, 7}
+a2[] = {11, 3, 7, 1}
+Output:
+Yes
+Explanation:
+a2[] is a subset of a1[]
+
+Example 2:
+
+Input:
+a1[] = {1, 2, 3, 4, 5, 6}
+a2[] = {1, 2, 4}
+Output:
+Yes
+Explanation:
+a2[] is a subset of a1[]
+
+Example 3:
+
+Input:
+a1[] = {10, 5, 2, 23, 19}
+a2[] = {19, 5, 3}
+Output:
+No
+Explanation:
+a2[] is not a subset of a1[]
+
+
+///source code
+
+
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+string isSubset(int a1[], int a2[], int n, int m) ;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int n, m;
+        cin >> n >> m;
+        int a1[n], a2[m];
+
+        for (int i = 0; i < n; i++) {
+            cin >> a1[i];
+        }
+        for (int i = 0; i < m; i++) {
+            cin >> a2[i];
+        }
+
+        cout << isSubset(a1, a2, n, m) << endl;
+    }
+    return 0;
+}
+
+// } Driver Code Ends
+
+
+string isSubset(int a1[], int a2[], int n, int m) {
+
+    
+
+    // tables for occourrence rate of each value
+
+    unordered_map<int, int> tbl1;
+
+    unordered_map<int, int> tbl2;
+
+    
+
+    bool isSub = true; // assume a2 -> a1 for ease of code
+
+    
+
+    // copy a1 into umap by element value
+
+    for(int i = 0; i < n; i++){
+
+        tbl1[a1[i]] += 1;
+
+    }
+
+    
+
+    // same for a2  
+
+    for(int i = 0; i < m; i++){
+
+        tbl2[a2[i]] += 1;
+
+    }
+
+  
+
+    // now, looking at the second table, see if each occourrence
+
+    // of values in a2 matches the number of a1's. 
+
+    for(int i = 0; isSub && (i < m); i++){
+
+        if( tbl2[a2[i]] > tbl1[a2[i]] ){
+
+            isSub = false;
+
+        }
+
+    }
+
+    
+
+    return {(isSub) ? "Yes" : "No"};
+
+ 
+
+}
