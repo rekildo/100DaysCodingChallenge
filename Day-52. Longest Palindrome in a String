@@ -1,0 +1,127 @@
+Longest Palindrome in a String
+MediumAccuracy: 23.2%Submissions: 210K+Points: 4
+Lamp
+This problem is part of GFG SDE Sheet. Click here to view more.  
+
+Given a string S, find the longest palindromic substring in S. Substring of string S: S[ i . . . . j ] where 0 ≤ i ≤ j < len(S). Palindrome string: A string which reads the same backwards. More formally, S is palindrome if reverse(S) = S. Incase of conflict, return the substring which occurs first ( with the least starting index).
+
+
+Example 1:
+
+Input:
+S = "aaaabbaa"
+Output: aabbaa
+Explanation: The longest Palindromic
+substring is "aabbaa".
+Example 2:
+
+Input: 
+S = "abc"
+Output: a
+Explanation: "a", "b" and "c" are the 
+longest palindromes with same length.
+The result is the one with the least
+starting index.
+
+Your Task:
+You don't need to read input or print anything. Your task is to complete the function longestPalin() which takes the string S as input and returns the longest palindromic substring of S.
+
+
+Expected Time Complexity: O(|S|2).
+Expected Auxiliary Space: O(1).
+
+
+Constraints:
+1 ≤ |S| ≤ 103
+
+
+
+
+//{ Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+class Solution {
+  public:
+    string longestPalin (string S) {
+        // code here
+        int n=S.size();
+        bool table[n][n];
+        memset(table,0,sizeof(table));
+        int mx=1;
+        // unordered_map<int, int> m;
+        map<int, int> m;
+        for(int i=0;i<n;i++){
+            table[i][i]= true;
+        }
+        
+        int start = 0;
+        for(int i=0; i<n-1; i++){
+            if(S[i] == S[i+1]){
+                table[i][i+1]=true;
+                mx=2;
+                start=i;
+                m[start]=mx;
+            }
+        }
+        
+        for(int k=3; k<=n; k++){
+            for(int i=0; i<n-k+1; i++){
+                int j=i+k-1;
+                if(table[i+1][j-1] && S[i]==S[j]){
+                    table[i][j]=true;
+                    if(k>mx){
+                        start=i;
+                        mx=k;
+                        m[start]=mx;
+                    }
+                }
+            }
+        }
+        
+        // for(auto i: m){
+        //     cout<<i.first<<" "<<i.second<<endl;
+        // }
+        int ms=1002;
+        for(auto i: m){
+            if(i.second == mx){
+                // start = i.first;
+                if(i.first<ms){
+                    ms=i.first;
+                }
+            }
+        }
+        // cout<<ms<<endl;
+        
+        string s="";
+        if(mx>1){
+            for(int i=ms; i<=ms+mx-1; i++){
+                s+=S[i];
+            }
+            return s;
+        }else if(mx==1){
+            s="";
+            s+=S[0];
+            return s;
+        }
+    }
+};
+
+//{ Driver Code Starts.
+
+int main()
+{
+    int t; cin >> t;
+    while (t--)
+    {
+        string S; cin >> S;
+        
+        Solution ob;
+        cout << ob.longestPalin (S) << endl;
+    }
+}
+// Contributed By: Pranay Bansal
+
+// } Driver Code Ends
