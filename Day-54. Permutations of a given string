@@ -1,0 +1,125 @@
+Permutations of a given string
+MediumAccuracy: 34.65%Submissions: 183K+Points: 4
+Lamp
+This problem is part of GFG SDE Sheet. Click here to view more.  
+
+Given a string S. The task is to print all unique permutations of the given string in lexicographically sorted order.
+
+ 
+
+Example 1:
+
+Input: ABC
+Output:
+ABC ACB BAC BCA CAB CBA
+Explanation:
+Given string ABC has permutations in 6 
+forms as ABC, ACB, BAC, BCA, CAB and CBA .
+Example 2:
+
+Input: ABSG
+Output:
+ABGS ABSG AGBS AGSB ASBG ASGB BAGS 
+BASG BGAS BGSA BSAG BSGA GABS GASB 
+GBAS GBSA GSAB GSBA SABG SAGB SBAG 
+SBGA SGAB SGBA
+Explanation:
+Given string ABSG has 24 permutations.
+ 
+
+Your Task:  
+You don't need to read input or print anything. Your task is to complete the function find_permutaion() which takes the string S as input parameter and returns a vector of string in lexicographical order.
+
+ 
+
+Expected Time Complexity: O(n! * n)
+
+Expected Space Complexity: O(n)
+
+
+
+//{ Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+class Solution
+{
+	public:
+		 void printPermutations(string str, string asf,vector<string> &st) {
+
+        if(str.length() == 0){
+
+            st.push_back(asf);
+
+            return ;
+
+        }
+
+        for(int i = 0;i<str.length();i++){
+
+            char ch = str[i];
+
+            string temp1 = str.substr(0,i);
+
+            string temp2 = str.substr(i+1);
+
+            string ros = temp1+temp2;
+
+            printPermutations(ros,asf+ch,st);
+
+        }
+
+    }
+
+ vector<string>find_permutation(string S)
+
+ {
+
+     vector<string> st;
+
+   printPermutations(S,"",st);
+
+   map<string,int> mp;
+
+   for(auto i:st){
+
+       mp[i]++;
+
+   }
+
+   st.resize(0);
+
+   for(auto i:mp){
+
+       st.push_back(i.first);
+
+   }
+
+    return st;
+
+ }
+};
+
+
+
+//{ Driver Code Starts.
+int main(){
+    int t;
+    cin >> t;
+    while(t--)
+    {
+	    string S;
+	    cin >> S;
+	    Solution ob;
+	    vector<string> ans = ob.find_permutation(S);
+	    for(auto i: ans)
+	    {
+	    	cout<<i<<" ";
+	    }
+	    cout<<"\n";
+    }
+	return 0;
+}
+
+// } Driver Code Ends
