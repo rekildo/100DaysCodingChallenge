@@ -1,0 +1,112 @@
+Number of pairs
+MediumAccuracy: 7.42%Submissions: 69K+Points: 4
+Lamp
+Don't Miss Out on the Exciting World of Data Science and Unlock Your Full Potential Today. Try this course!
+
+Given two arrays X[] and Y[] of size M and N respectively. Find number of pairs such that xy > yx where x is an element from X[] and y is an element from Y[].
+
+Example 1:
+
+Input:
+M = 3, N = 2
+X[] = {2, 1, 6}, Y = {1, 5}
+Output: 3
+Explanation: There are total 3 pairs 
+where pow(x, y) is greater than pow(y, x) 
+Pairs are (2, 1), (2, 5) and (6, 1).
+
+Example 2:
+
+Input:
+M = 3, N = 3
+X[] = {10, 19, 18}, Y[] = {11, 15, 9}
+Output: 2
+Explanation: There are total 2 pairs 
+where pow(x, y) is greater than pow(y, x) 
+Pairs are (10, 11) and (10, 15).
+
+Your Task:
+You don't need to read input or print anything. Your task is to complete the function countPairs() which takes array X[], array Y[], m and n as input parameters and returns an integer denoting the number of pairs that are true to the given condition. 
+
+
+Expected Time Complexity: O(N*logN + M*logM)
+Expected Auxiliary Space: O(1)
+
+
+Constraints:
+1 ≤ M, N ≤ 105
+1 ≤ X[i], Y[i] ≤ 103
+
+//{ Driver Code Starts
+//Initial template for C++
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+//User function template for C++
+
+class Solution{   
+public:
+    long long countPairs(int X[], int Y[], int m, int n) 
+    {
+        // code here
+       // x^y > y^x
+       // take log on both sides
+       // ylog(x)>xlog(y)
+       // y/x>log(y)/log(x)
+       //y/log(y)> x/log(x)
+       
+       
+       
+        vector<double>x;
+        vector<double>y;
+        
+        for(int i = 0; i<m; i++)
+        {
+            double temp1 = (double)X[i]/(double)log(X[i]);
+            x.push_back(temp1);
+        }
+        
+        for(int i = 0; i<n; i++)
+        {
+            double temp2 = (double)Y[i]/(double)log(Y[i]);
+            y.push_back(temp2);
+        }
+        
+        sort(x.begin(),x.end());
+        sort(y.begin(), y.end());
+        
+        long long int ans = 0;
+        for(auto z : y)
+        {
+            long long int temp3 = lower_bound(x.begin(),x.end(),z) - x.begin();
+            ans = ans + temp3;
+        }
+        
+        return ans;
+    }
+};
+
+//{ Driver Code Starts.
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int m, n;
+        cin >> m >> n;
+        int X[m], Y[n];
+        for (int i = 0; i < m; i++) {
+            cin >> X[i];
+        }
+        for (int i = 0; i < n; i++) {
+            cin >> Y[i];
+        }
+        Solution ob;
+        auto ans = ob.countPairs(X, Y, m, n);
+        cout << ans << "\n";
+    }
+    return 0;
+}
+// } Driver Code Ends
