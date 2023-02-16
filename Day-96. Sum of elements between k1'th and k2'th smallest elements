@@ -48,7 +48,7 @@ using namespace std;
 // } Driver Code Ends
 class Solution{
     public:
-    ong long kthsmallest(long long A[], long long N, long long K1)
+    long long kthsmallest(long long A[], long long N, long long K1)
 
     {
 
