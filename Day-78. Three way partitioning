@@ -91,6 +91,7 @@ public:
 
                 swap(arr[i], arr[high--]);
 
+        }
     }
 };
 
