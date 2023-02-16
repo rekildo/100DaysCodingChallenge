@@ -1,0 +1,94 @@
+Sort by Absolute Difference
+EasyAccuracy: 27.77%Submissions: 32K+Points: 2
+Lamp
+Don't Miss Out on the Exciting World of Data Science and Unlock Your Full Potential Today. Try this course!
+
+Given an array of N elements and a number K. The task is to arrange array elements according to the absolute difference with K, i. e., element having minimum difference comes first and so on.
+Note : If two or more elements are at equal distance arrange them in same sequence as in the given array.
+ 
+
+Example 1:
+
+Input: N = 5, K = 7
+arr[] = {10, 5, 3, 9, 2}
+Output: 5 9 10 3 2
+Explanation: Sorting the numbers accoding to 
+the absolute difference with 7, we have 
+array elements as 5, 9, 10, 3, 2.
+Example 2:
+
+Input: N = 5, K = 6
+arr[] = {1, 2, 3, 4, 5}
+Output: 5 4 3 2 1
+Explanation: Sorting the numbers according to 
+the absolute difference with 6, we have array 
+elements as 5 4 3 2 1.
+
+Your Task:
+This is a functional problem. You only need to complete the function sortABS(). The printing is done automatically by the driver code.
+
+Expected Time Complexity: O(N log(N) ).
+Expected Auxiliary Space: O(N).
+
+Constraints:
+1 <= N <= 105
+1 <= K <= 105
+
+
+
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+class Solution{
+    public:
+    
+    // A[]: input array
+    // N: size of array
+    //Function to sort the array according to difference with given number.
+    void sortABS(int A[],int N, int k)
+    {vector<pair<pair<int,int>,int>> v;
+     for(int i=0;i<N;i++){
+         v.push_back({{abs(k-A[i]),i},A[i]});
+     }
+     sort(v.begin(),v.end());
+     int p=0;
+     for(auto it=v.begin();it!=v.end();it++){
+         A[p]=it->second;
+         p++;
+     }
+    }
+};
+
+//{ Driver Code Starts.
+
+int main()
+ {
+	int T;
+	cin>> T;
+	
+	while (T--)
+	{
+	    
+	    int N, diff;
+	    cin>>N>>diff;
+	    int A[N];
+	    
+	    for(int i = 0; i<N; i++)
+	        cin>>A[i];
+	   
+	    Solution ob;
+	   
+	    ob.sortABS(A, N, diff);
+	    
+	    for(int & val : A)
+	        cout<<val<<" ";
+	    cout<<endl;
+	    
+	}
+	
+	return 0;
+}
+// } Driver Code Ends
