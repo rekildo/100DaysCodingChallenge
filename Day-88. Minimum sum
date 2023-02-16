@@ -1,0 +1,162 @@
+Minimum sum
+MediumAccuracy: 17.14%Submissions: 62K+Points: 4
+Lamp
+Don't Miss Out on the Exciting World of Data Science and Unlock Your Full Potential Today. Try this course!
+
+Given an array Arr of size N such that each element is from the range 0 to 9. Find the minimum possible sum of two numbers formed using the elements of the array. All digits in the given array must be used to form the two numbers.
+
+
+Example 1:
+
+Input:
+N = 6
+Arr[] = {6, 8, 4, 5, 2, 3}
+Output: 604
+Explanation: The minimum sum is formed 
+by numbers 358 and 246.
+
+Example 2:
+
+Input:
+N = 5
+Arr[] = {5, 3, 0, 7, 4}
+Output: 82
+Explanation: The minimum sum is 
+formed by numbers 35 and 047.
+
+Your Task:
+You don't need to read input or print anything. Your task is to complete the function solve() which takes arr[] and n as input parameters and returns the minimum possible sum. As the number can be large, return string presentation of the number without leading zeroes.
+ 
+
+Expected Time Complexity: O(N*logN)
+Expected Auxiliary Space: O(1)
+
+
+
+//{ Driver Code Starts
+//Initial template for C++
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+//User function template for C++
+
+class Solution{   
+public:
+    string solve(int arr[], int n) {
+
+     sort(arr,arr+n);
+
+     string a = "";
+
+     string b = "";
+
+     for(int i = 0;i<n;i++)
+
+     {
+
+         if(i%2==0)
+
+         {
+
+             a += to_string(arr[i]);
+
+         }
+
+         else
+
+         {
+
+             b += to_string(arr[i]);
+
+         }
+
+     }
+
+     reverse(a.begin(),a.end());
+
+     reverse(b.begin(),b.end());
+
+     int car = 0;
+
+     string c = "";
+
+     int i = 0;
+
+     int j = 0;
+
+     while(i<a.size() or j<b.size() or car)
+
+     { int sum = 0;
+
+       sum += car;
+
+       if(i<a.size())
+
+       {
+
+           sum += a[i]-'0';
+
+       }
+
+       if(j<b.size())
+
+       {
+
+           sum += b[j]-'0';
+
+       }
+
+       car = sum/10;
+
+       sum = sum%10;
+
+       c += to_string(sum); 
+
+       i++;
+
+       j++;
+
+     }
+
+     
+
+     reverse(c.begin(),c.end());
+
+     while(c[0] == '0')
+
+     {
+
+         c = c.substr(1);
+
+     }
+
+     return c;
+
+    }
+};
+
+//{ Driver Code Starts.
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        int arr[n];
+        for (int i = 0; i < n; i++) {
+            cin >> arr[i];
+        }
+        Solution ob;
+        auto ans = ob.solve(arr, n);
+        cout << ans << "\n";
+    }
+    return 0;
+}
+// } Driver Code Ends
+
+
+Constraints:
+1 ≤ N ≤ 107
+0 ≤ Arri ≤ 9
